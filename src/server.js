@@ -3,11 +3,11 @@ import helmet from 'helmet';
 import 'dotenv/config';
 import cors from 'cors';
 
-import { connectMongoDb } from './db/connectMongoDB.js';
+import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import notesRoutes from "../src/routes/notesRoutes.js";
+import notesRoutes from './routes/notesRoutes.js';
 
 
 const app = express();
@@ -26,7 +26,7 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 
-await connectMongoDb();
+await connectMongoDB();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
