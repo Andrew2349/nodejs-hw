@@ -1,3 +1,4 @@
+
 import { Schema } from 'mongoose';
 import { model } from 'mongoose';
 
@@ -23,5 +24,7 @@ const noteSchema = new Schema(
      timestamps: true
   }
 );
+
+noteSchema.index({ title: "text" });
 
 export const Note = model("Note", noteSchema);
