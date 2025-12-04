@@ -12,7 +12,7 @@ export const getAllNotesSchema = {
     {
       page: Joi.number().min(1).default(1),
       perPage: Joi.number().min(5).max(20).default(10),
-      tag: Joi.string().valid(...TAGS),
+      tag: Joi.string().valid(...TAGS).optional(),
       search: Joi.string().trim().allow('')
     })
 };
@@ -27,21 +27,21 @@ export const noteIdSchema = {
 export const createNoteSchema = {
   [Segments.BODY]: Joi.object(
     {
-      title: Joi.string().max(100).required(),
-      content: Joi.string().required(),
-      tag: Joi.string().max(30).required(),
+      title: Joi.string().min(1).required(),
+      content: Joi.string().allow(''),
+      tag: Joi.string().valid(...TAGS).optional(),
     })
 };
 
 export const updateNoteSchema = {
   [Segments.PARAMS]: Joi.object(
     {
-      id: Joi.string().custom(objectIdValidator).required(),
+      noteId: Joi.string().custom(objectIdValidator).required(),
     }),
   [Segments.BODY]: Joi.object(
     {
-      title: Joi.string().max(100),
-      content: Joi.string(),
+      title: Joi.string().min(1).required(),
+      content: Joi.string().allow(''),
       tag: Joi.string().valid(...TAGS),
     }).min(1)
 };
