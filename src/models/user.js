@@ -18,6 +18,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 8,
     },
+    avatar: {
+      type: String,
+      required: false,
+      default: "https://ac.goit.global/fullstack/react/default-avatar.jpg",
+    },
   },
   {
     timestamps: true,
@@ -37,5 +42,7 @@ userSchema.methods.toJSON = function () {
   delete obj.password;
   return obj;
 };
+
+
 
 export const User = model("User", userSchema);
